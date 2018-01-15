@@ -5,8 +5,7 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-#define MaxMesg 243
-#define MaxName  12
+#define MaxMesg 256
 #define MaxConn  10
 #define PORT "8080"
 
@@ -24,7 +23,7 @@ void *ReadWrite (void *Args)
 	char Rcvd[MaxMesg];
 	bzero(Rcvd, MaxMesg);
     int i;
-	while(recv(fd[cnt], Rcvd, 100, 0)) 
+	while(recv(fd[cnt], Rcvd, MaxMesg, 0)) 
 	{   
         for (i=0; i<=args->cnt; i++){
             if((i != cnt) && (fd[i] != -1)) send(fd[i], Rcvd, strlen(Rcvd)+1, 0);}
